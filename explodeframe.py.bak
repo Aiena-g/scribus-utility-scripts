@@ -1,0 +1,61 @@
+try:
+    import scribus
+except ImportError:
+    print "Unable to import the 'scribus' module. This script will only run within"
+    print "the Python interpreter embedded in Scribus. Try Script->Execute Script."
+    sys.exit(1)
+
+def validate_selection():
+	# returns False if the validation failed or the name of the 
+	# text frame on success
+	
+	error_msg_1 = "Error: Only one object can be selected."
+	error_msg_2 = "Error: Object must be a txt frame."
+	has_error_1 = False
+	has_error_2 = False
+	sel_cnt  = scribus.selectionCount()
+	
+	if (sel_cnt == 0):
+		has_error_1 = True
+	
+	if (sel_cnt > 1):
+		has_error_1 = True
+
+	# it has passed test for one so take 1st object only as 
+	# there is only one
+	sel_obj_name = scribus.getSelectedObject(0)
+	sel_obj_type = scribus.getObjectType(sel_obj_name)
+	
+	if (sel_obj_type != "TextFrame"):
+		has_error_2 = True
+	
+	if (has_error_1 == True):
+		print error_msg_1
+	
+	if (has_error_2 == True):
+		print error_msg_2
+	
+	if (has_error_1 == True or has_error_2 == True):	
+		return False
+	
+	#return True	
+	
+
+def main():
+	validate_selection()
+
+
+	# get the current frame
+
+	# get the content and compute number of lines
+
+	# get linespacing and font width
+
+	# compute new frame coordinates
+
+	# loop and make frames
+
+	#done
+
+# call main function
+main()
