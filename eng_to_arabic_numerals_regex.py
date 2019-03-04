@@ -44,8 +44,7 @@ def get_significant_text_indices(unicodestr):
 	chars_to_search.extend([arabic_dec_sep, arabic_perc_sign])
 	search_re = "|".join(chars_to_search)
 	print "regex2 is {}".format(search_re)
-	
-	return
+
 	for m in re.finditer(search_re, unicodestr):
 		# list containing lists of [start index, count] items e.g. [[1,3],[7,2]] etc.
 		result.append([m.start(), m.end() -  m.start()])
@@ -105,19 +104,16 @@ def main():
 			
 			print (repr(color_idx_lst))
 			
+			print(curr_style)
+			if (curr_style is not None):
+				scribus.setStyle(curr_style,obj_nm)
+			
 			for i in color_idx_lst:
+				# color needs to be set after style
+				scribus.selectText(0,0,obj_nm) # clear selection
 				scribus.selectText(i[0],i[1],obj_nm)
 				scribus.setTextColor("Red",obj_nm)
-				print(curr_style)
-				if (curr_style is not None):
-					scribus.setStyle(curr_style,obj_nm)
-			
+		
 
 
 main()
-'''
-
-import scribus
-
-scribus.selectText(2,1)
-'''
